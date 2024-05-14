@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Maithili" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/my_app_primary</item>
+        <item name="colorPrimaryDark">@color/my_app_primary_dark</item>
+        <item name="colorAccent">@color/my_app_accent</item>
+        <item name="android:colorBackground">@color/my_app_background</item>
+
+
+    </style>
+
+    <style name="Theme.Maithili" parent="Base.Theme.Maithili" />
+
+
+
+    <color name="my_app_primary">#007bff</color>
+    <color name="my_app_primary_dark">#0069d9</color>
+    <color name="my_app_accent">#ffc107</color>
+    <color name="my_app_background">#f5f5f5</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#757575</color>
+
+
+
+
+</resources>
