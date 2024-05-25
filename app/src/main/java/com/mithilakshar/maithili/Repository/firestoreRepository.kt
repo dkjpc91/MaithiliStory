@@ -3,6 +3,7 @@ package com.mithilakshar.maithili.Repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mithilakshar.maithili.Model.homeData
 import kotlinx.coroutines.tasks.await
 
 class firestoreRepository {
@@ -17,6 +18,13 @@ class firestoreRepository {
         } else {
             emptyList()
         }
+    }
+
+    suspend fun homeData(): List<homeData> {
+        val db = FirebaseFirestore.getInstance()
+        val documentSnapshot = db.collection("homeData").get().await()
+        return documentSnapshot.toObjects(homeData::class.java)
+
     }
 
 

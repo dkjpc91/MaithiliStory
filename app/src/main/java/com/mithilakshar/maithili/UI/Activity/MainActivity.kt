@@ -1,5 +1,6 @@
 package com.mithilakshar.maithili.UI.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -46,16 +47,20 @@ class MainActivity : AppCompatActivity() {
 
             Glide.with(this@MainActivity).load(bannerurls.get(random)).into(binding.homeBanner)
 
-            var list: ArrayList<homeData> = arrayListOf()
+            var list: List<homeData> = listOf()
 
-            list.add(homeData("apple"))
-            list.add(homeData("ball"))
-            list.add(homeData("cAT"))
-            list.add(homeData("dog"))
+            list= viewModelhome.homeData()
 
-
-            val adapter=homeAdapter(list)
+            val adapter=homeAdapter(list,applicationContext)
             binding.homeRecycler.adapter=adapter
+
+            binding.homeBanner.setOnClickListener {
+
+                    val intent= Intent(this@MainActivity, PlayerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    this@MainActivity.startActivity(intent)
+
+            }
 
         }
 
