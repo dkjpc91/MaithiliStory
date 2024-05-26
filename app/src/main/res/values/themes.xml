@@ -22,6 +22,11 @@
     <color name="text_secondary">#757575</color>
 
 
+    <style name="curved">
+        <item name="cornerSize">15%</item>
+    </style>
+
+
 
 
 </resources>

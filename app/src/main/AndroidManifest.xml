@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Maithili"
         tools:targetApi="31">
         <activity
+            android:name=".UI.Activity.videoPlayerActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.Activity.PlayerActivity"
             android:exported="false" />
         <activity

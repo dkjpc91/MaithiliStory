@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
             binding.homeBanner.setOnClickListener {
 
-                    val intent= Intent(this@MainActivity, PlayerActivity::class.java)
+                    val intent= Intent(this@MainActivity, videoPlayerActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     this@MainActivity.startActivity(intent)
 
