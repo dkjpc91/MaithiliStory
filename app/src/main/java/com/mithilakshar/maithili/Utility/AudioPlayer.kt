@@ -3,6 +3,7 @@ package com.mithilakshar.maithili.Utility
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.widget.SeekBar
 
 class AudioPlayer(private val context: Context) {
 
@@ -65,6 +66,14 @@ class AudioPlayer(private val context: Context) {
 
     }
 
+    fun AudioPlayerSeekto(p: Int){
+        if(p>0){
+            mediaPlayer?.seekTo(p)
+            mediaPlayer?.start()
+        }
+
+    }
+
     fun AudioPlayerPause() {
 
         if(mediaPlayer!!.isPlaying){
@@ -96,9 +105,9 @@ class AudioPlayer(private val context: Context) {
     // Function to set the progress listener
     fun setProgressListener(listener: (Int) -> Unit) {
         this.progressListener = listener
-        mediaPlayer?.setOnSeekCompleteListener {
+        /*mediaPlayer?.setOnSeekCompleteListener {
             listener.invoke(currentPosition)
-        }
+        }*/
     }
 
     // Getter for the current position

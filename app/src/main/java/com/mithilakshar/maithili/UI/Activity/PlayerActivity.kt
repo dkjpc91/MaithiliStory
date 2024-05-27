@@ -20,6 +20,7 @@ class PlayerActivity : AppCompatActivity(){
     lateinit var binding:ActivityPlayerBinding
     lateinit var AudioPlayer:AudioPlayer
     private lateinit var seekBar: SeekBar
+    private var isUserSeeking = false
     private val handler = Handler(Looper.getMainLooper())
     private var isPaused: Boolean = false
 
@@ -46,20 +47,42 @@ class PlayerActivity : AppCompatActivity(){
 
         seekBar=binding.seekBar
         AudioPlayer = AudioPlayer(applicationContext)
-        AudioPlayer.prepareAndPlayMedia("https://onlinetestcase.com/wp-content/uploads/2023/06/1-MB-MP3.mp3", startImmediately = true) {
+        AudioPlayer.prepareAndPlayMedia("https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3", startImmediately = true) {
             seekBar.max = AudioPlayer.duration
 
 
         }
 
-        updateSeekBar()
 
 
         AudioPlayer.setProgressListener { progress ->
 
-            seekBar.progress = progress
+            if (!isUserSeeking) { // Update SeekBar progress only if user is not currently seeking
+
+            }
 
          }
+
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                if (p2) { // Check if SeekBar change is initiated by user
+                    AudioPlayer.AudioPlayerSeekto(p1)// Seek audio to the new position
+                }
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+
+            }
+
+
+        })
+
+        updateSeekBar()
 
 
 
@@ -69,7 +92,7 @@ class PlayerActivity : AppCompatActivity(){
         AudioPlayer.setCompletionListener {
 
 
-            Toast.makeText(this, "Media playback completed!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Media playback completed!", Toast.LENGTH_SHORT).show()
 
         }
 
@@ -119,10 +142,26 @@ class PlayerActivity : AppCompatActivity(){
                 // Update the SeekBar with the current position
                 val currentPosition1 = AudioPlayer.currentPosition
                 val duration = AudioPlayer.duration
-                if (duration > 0) {
-                    val progress = (currentPosition1 * 100) / duration
-                    seekBar.progress = progress
+
+                if (!isUserSeeking){
+                    if (duration > 0) {
+                        seekBar.max = duration // Update SeekBar max value if necessary
+                        seekBar.progress = currentPosition1
+                    }
                 }
+
+                if (duration > 0) {
+                    if (!AudioPlayer.mediaPlayer?.isPlaying!!) {
+                        binding.pauseButton.setImageResource(R.drawable.play)
+                        binding.lottie.visibility = LottieAnimationView.GONE
+                        binding.songImage.visibility = ShapeableImageView.VISIBLE
+                        // performSomeAction()
+                    }
+                }
+
+
+
+
                 // Schedule the next update
                 handler.postDelayed(this, 500)
             }
