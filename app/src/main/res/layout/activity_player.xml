@@ -72,8 +72,9 @@
 
         <!--    Current Song Image-->
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/songImgPA"
+            android:id="@+id/songImage"
             android:layout_width="250dp"
+            android:visibility="gone"
             android:layout_height="230dp"
             android:layout_margin="50dp"
             android:padding="5dp"
@@ -84,8 +85,8 @@
             app:strokeWidth="5dp"/>
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/songImgPA2"
-            android:visibility="gone"
+            android:id="@+id/lottie"
+
 
             android:layout_width="250dp"
             android:layout_height="230dp"
@@ -112,14 +113,14 @@
 
             <!--        Play & Pause Button-->
             <ImageView
-                android:id="@+id/playbutton"
+                android:id="@+id/pauseButton"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:contentDescription="APP"
                 android:padding="10dp"
-                android:src="@drawable/play" />
+                android:src="@drawable/pause" />
 
 
         </LinearLayout>
@@ -143,7 +144,7 @@
                 android:gravity="center"/>
 
             <androidx.appcompat.widget.AppCompatSeekBar
-                android:id="@+id/seekBarPA"
+                android:id="@+id/seekBar"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
