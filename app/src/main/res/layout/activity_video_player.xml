@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,6 +7,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.Activity.videoPlayerActivity">
+
+    <FrameLayout
+        android:background="@drawable/common_google_signin_btn_icon_dark"
+        android:id="@+id/full_screen_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--    First Row-->
 
@@ -19,31 +30,33 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:background="#F4F88C"
+            android:background="@drawable/topsheet"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="0.71">
 
             <!--    Back Button-->
             <ImageButton
+
                 android:id="@+id/backBtnPA"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/back"
                 android:background="?attr/selectableItemBackground"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:contentDescription="APP"
                 app:tint="@color/my_app_primary"
                 android:padding="10dp" />
 
             <TextView
+                android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/my_app_primary"
                 android:text="Video"
-                android:layout_marginRight="50dp"
+                android:layout_marginRight="80dp"
                 android:textSize="28sp"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -54,82 +67,65 @@
 
         </LinearLayout>
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3.2" />
-
         <TextView
+            android:layout_gravity="start"
             android:id="@+id/songNamePA"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="50dp"
             android:layout_marginHorizontal="29dp"
+
             android:text="Video Name"
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="@color/my_app_primary"
             android:gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:textIsSelectable="true" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_weight="2"
-            android:id="@+id/songImgPA2"
-            android:layout_width="250dp"
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="50dp"
+            android:layout_weight="2.5" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_weight="1"
+            android:id="@+id/songImgPA2"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="100dp"
             android:padding="5dp"
+            app:lottie_rawRes="@raw/music2"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/music2"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_vertical|center_horizontal"
             app:strokeColor="#ECE791"
             app:strokeWidth="5dp"/>
 
-        <!--    Floating Buttons for Previous, Pause & Next-->
-        <LinearLayout
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_weight="1">
 
-            <!--        Previous Button-->
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/previousBtnPA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/back"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                app:iconSize="40dp"/>
 
-            <!--        Play & Pause Button-->
-            <ImageView
-                android:id="@+id/playbutton"
-                android:layout_width="80dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_height="80dp"
-                android:src="@drawable/play"
-                android:contentDescription="APP"
-                android:padding="10dp" />
-
-            <!--        Next Button-->
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/nextBtnPA"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/forward"
-                app:iconSize="40dp"/>
-
-        </LinearLayout>
 
 
     </LinearLayout>
 
-</LinearLayout>
+    <FrameLayout
+        android:layout_marginTop="-80dp"
+        android:id="@+id/sheet"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+
+        android:background="@drawable/bottomsheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <include layout="@layout/bottomsheet"/>
+    </FrameLayout>
+
+
+
+
+
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

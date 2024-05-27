@@ -2,21 +2,24 @@ package com.mithilakshar.maithili.UI.Activity
 
 
 import android.os.Bundle
+import com.mithilakshar.maithili.Utility.VideoPlayerHelper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mithilakshar.maithili.R
+
 import com.mithilakshar.maithili.Utility.videoPlayerUtil
 import com.mithilakshar.maithili.databinding.ActivityVideoPlayerBinding
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 
 class videoPlayerActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityVideoPlayerBinding
+    private lateinit var videoPlayerUtil: videoPlayerUtil
+    private lateinit var VideoPlayerHelper: VideoPlayerHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,15 +31,17 @@ class videoPlayerActivity : AppCompatActivity() {
             insets
         }
 
+        BottomSheetBehavior.from(binding.sheet).apply {
 
-        val videoPlayerUtil = videoPlayerUtil(this, lifecycle, binding.youtubePlayerView)
+            this.state= BottomSheetBehavior.STATE_COLLAPSED
+            this.setPeekHeight(200)
 
-        videoPlayerUtil.initializePlayer("SBfPs-PMGTA")
 
-        binding.nextBtnPA.setOnClickListener {
-
-            videoPlayerUtil.loadVideo("-oE00BpIcMs")
         }
+        videoPlayerUtil = videoPlayerUtil(this, lifecycle, binding.youtubePlayerView,binding.fullScreenViewContainer)
+
+
+       videoPlayerUtil.initializePlayer("SBfPs-PMGTA")
 
 
 
@@ -47,24 +52,15 @@ class videoPlayerActivity : AppCompatActivity() {
 
 
 
-/*
-
-        val youTubePlayerView=binding.youtubePlayerView
-        lifecycle.addObserver(youTubePlayerView)
-
-        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                val videoId = "SBfPs-PMGTA" // Replace with your desired video ID
-                youTubePlayer.loadVideo(videoId, 0f)
-            }
-        })
-
-*/
 
 
 
 
 
+    }
 
+    public override fun onDestroy() {
+        super.onDestroy()
+        videoPlayerUtil.releaseYouTubePlayer()
     }
 }

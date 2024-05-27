@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,162 +8,188 @@
     android:orientation="vertical"
     tools:context=".UI.Activity.PlayerActivity">
 
-    <!--    First Row-->
     <LinearLayout
-        android:background="#F4F88C"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <!--    Back Button-->
-        <ImageButton
-            android:id="@+id/backBtnPA"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/back"
-            android:background="?attr/selectableItemBackground"
-            android:layout_marginStart="15dp"
-            android:contentDescription="APP"
-            app:tint="@color/my_app_primary"
-            android:padding="10dp" />
+        <LinearLayout
+            android:background="@drawable/topsheet"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <!--    Back Button-->
+            <ImageButton
+
+                android:id="@+id/backBtnPA"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/back"
+                android:background="?attr/selectableItemBackground"
+                android:layout_marginStart="25dp"
+                android:contentDescription="APP"
+                app:tint="@color/my_app_primary"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/my_app_primary"
+                android:text="Video"
+                android:layout_marginRight="80dp"
+                android:textSize="28sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                tools:ignore="NestedWeights"
+                android:textStyle="bold"/>
+
+            <!--        Favourite Button-->
+
+        </LinearLayout>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:id="@+id/songNamePA"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="29dp"
+
+            android:text="Video Name"
+            android:textSize="25sp"
+            android:textStyle="bold"
             android:textColor="@color/my_app_primary"
-            android:text="Music"
-            android:layout_marginRight="50dp"
-            android:textSize="28sp"
             android:gravity="center"
-            android:layout_weight="1"
-            tools:ignore="NestedWeights"
-            android:textStyle="bold"/>
+            android:layout_weight="0.6"
+            android:textIsSelectable="true" />
 
-        <!--        Favourite Button-->
+
+
+        <!--    Current Song Image-->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/songImgPA"
+            android:layout_width="250dp"
+            android:layout_height="230dp"
+            android:layout_margin="50dp"
+            android:padding="5dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/music"
+            app:shapeAppearanceOverlay="@style/curved"
+            app:strokeColor="#ECE791"
+            app:strokeWidth="5dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/songImgPA2"
+            android:visibility="gone"
+
+            android:layout_width="250dp"
+            android:layout_height="230dp"
+            android:layout_margin="50dp"
+            android:padding="5dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/music2"
+            android:layout_gravity="center_horizontal"
+            app:strokeColor="#ECE791"
+            app:strokeWidth="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".8"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+           >
+
+
+
+
+            <!--        Play & Pause Button-->
+            <ImageView
+                android:id="@+id/playbutton"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:contentDescription="APP"
+                android:padding="10dp"
+                android:src="@drawable/play" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="100dp"
+            android:layout_weight=".8">
+
+            <TextView
+                android:id="@+id/tvSeekBarStart"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/my_app_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Start"
+                android:gravity="center"/>
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/seekBarPA"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:ignore="NestedWeights" />
+
+            <TextView
+                android:id="@+id/tvSeekBarEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/my_app_primary"
+                android:textSize="20sp"
+                android:text="End"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </LinearLayout>
+
+
+
+
+
 
     </LinearLayout>
 
-    <!--    Current Song Image-->
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/songImgPA"
-        android:visibility="gone"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_margin="50dp"
-        android:padding="5dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/music"
-        app:shapeAppearanceOverlay="@style/curved"
-        app:strokeColor="#ECE791"
-        app:strokeWidth="5dp"/>
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/songImgPA2"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_margin="50dp"
-        android:padding="5dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/music2"
-        android:layout_gravity="center_horizontal"
-        app:strokeColor="#ECE791"
-        app:strokeWidth="5dp"/>
-
-    <!--    Current Song Name-->
-    <TextView
-        android:id="@+id/songNamePA"
+    <FrameLayout
+        android:layout_marginTop="-50dp"
+        android:id="@+id/sheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="29dp"
-        android:text="Music Name"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="@color/my_app_primary"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:textIsSelectable="true" />
+        android:layout_height="350dp"
 
-    <!--    Floating Buttons for Previous, Pause & Next-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="1">
+        android:background="@drawable/bottomsheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <!--        Previous Button-->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/previousBtnPA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/back"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            app:iconSize="40dp"/>
+        <include layout="@layout/bottomsheet"/>
+    </FrameLayout>
 
-        <!--        Play & Pause Button-->
-        <ImageView
-            android:id="@+id/playbutton"
-            android:layout_width="80dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="80dp"
-            android:src="@drawable/play"
-            android:contentDescription="APP"
-            android:padding="10dp" />
 
-        <!--        Next Button-->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/nextBtnPA"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/forward"
-            app:iconSize="40dp"/>
+    <!--    First Row-->
 
-    </LinearLayout>
+
+
+
 
     <!--    Seekbar & TextViews for it-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:orientation="horizontal"
-        android:layout_margin="30dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/tvSeekBarStart"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/my_app_primary"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="Start"
-            android:gravity="center"/>
-
-        <androidx.appcompat.widget.AppCompatSeekBar
-            android:id="@+id/seekBarPA"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:ignore="NestedWeights" />
-
-        <TextView
-            android:id="@+id/tvSeekBarEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/my_app_primary"
-            android:textSize="20sp"
-            android:text="End"
-            android:textStyle="bold"
-            android:gravity="center"/>
-    </LinearLayout>
 
 
 
 
-</LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
