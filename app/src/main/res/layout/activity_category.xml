@@ -7,13 +7,58 @@
     android:layout_height="match_parent"
     tools:context=".UI.Activity.CategoryActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/topsheet"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--    Back Button-->
+        <ImageButton
+
+            android:id="@+id/backBtnPA"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="APP"
+            android:padding="10dp"
+            android:src="@drawable/back"
+            app:tint="@color/my_app_primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="80dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Video"
+            android:textColor="@color/my_app_primary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            tools:ignore="NestedWeights" />
+
+        <!--        Favourite Button-->
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryRecycler"
-        tools:listitem="@layout/category_item"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:listitem="@layout/category_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

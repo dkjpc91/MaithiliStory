@@ -1,8 +1,10 @@
 package com.mithilakshar.maithili.UI.Activity
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Toast
 import com.mithilakshar.maithili.Utility.AudioPlayer
@@ -15,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.imageview.ShapeableImageView
 import com.mithilakshar.maithili.R
 import com.mithilakshar.maithili.databinding.ActivityPlayerBinding
+import com.mithilakshar.maithili.databinding.BottomsheetBinding
 
 class PlayerActivity : AppCompatActivity(){
     lateinit var binding:ActivityPlayerBinding
@@ -23,6 +26,7 @@ class PlayerActivity : AppCompatActivity(){
     private var isUserSeeking = false
     private val handler = Handler(Looper.getMainLooper())
     private var isPaused: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +49,7 @@ class PlayerActivity : AppCompatActivity(){
 
         // Set up media player and SeekBar max value
 
-        seekBar=binding.seekBar
+        seekBar = binding.seekBar
         AudioPlayer = AudioPlayer(applicationContext)
         AudioPlayer.prepareAndPlayMedia("https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3", startImmediately = true) {
             seekBar.max = AudioPlayer.duration
@@ -96,31 +100,42 @@ class PlayerActivity : AppCompatActivity(){
 
         }
 
+        val includedView = binding.sheet
+        val includedLayoutBinding = BottomsheetBinding.bind(includedView)
 
-
+        includedLayoutBinding.playbutton .setOnClickListener {
+            toggleButton(includedLayoutBinding)
+        }
 
 
         binding.pauseButton.setOnClickListener {
 
-            if (isPaused) {
-                // Set to play state
-                binding.pauseButton.setImageResource(R.drawable.pause)
-                binding.lottie.visibility = LottieAnimationView.VISIBLE
-                binding.songImage.visibility = ShapeableImageView.GONE
-
-                AudioPlayer.AudioPlayerResume() // Assuming you have this method to resume playing
-            } else {
-                // Set to pause state
-                binding.pauseButton.setImageResource(R.drawable.play)
-                binding.lottie.visibility = LottieAnimationView.GONE
-                binding.songImage.visibility = ShapeableImageView.VISIBLE
-                AudioPlayer.AudioPlayerPause()
-            }
-            isPaused = !isPaused
+            toggleButton(includedLayoutBinding)
 
 
         }
 
+    }
+
+    private fun toggleButton(includedLayoutBinding: BottomsheetBinding) {
+        if (isPaused) {
+            // Set to play state
+            binding.pauseButton.setImageResource(R.drawable.pause)
+            binding.lottie.visibility = LottieAnimationView.VISIBLE
+            binding.songImage.visibility = ShapeableImageView.GONE
+            binding.seekbarlayout.visibility=LinearLayout.VISIBLE
+            includedLayoutBinding.playbutton.setImageResource(R.drawable.pause)
+            AudioPlayer.AudioPlayerResume() // Assuming you have this method to resume playing
+        } else {
+            // Set to pause state
+            binding.pauseButton.setImageResource(R.drawable.play)
+            binding.lottie.visibility = LottieAnimationView.GONE
+            binding.songImage.visibility = ShapeableImageView.VISIBLE
+            binding.seekbarlayout.visibility=LinearLayout.INVISIBLE
+            includedLayoutBinding.playbutton.setImageResource(R.drawable.play)
+            AudioPlayer.AudioPlayerPause()
+        }
+        isPaused = !isPaused
     }
 
     override fun onResume() {

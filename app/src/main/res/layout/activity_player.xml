@@ -127,6 +127,7 @@
 
 
         <LinearLayout
+            android:id="@+id/seekbarlayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
@@ -168,17 +169,17 @@
 
     </LinearLayout>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="-50dp"
         android:id="@+id/sheet"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
 
         android:background="@drawable/bottomsheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <include layout="@layout/bottomsheet"/>
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <!--    First Row-->

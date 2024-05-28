@@ -31,14 +31,7 @@
 
 
         <!--        Previous Button-->
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/previousBtnPA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            app:icon="@drawable/back"
-            app:iconSize="40dp" />
+
 
         <!--        Play & Pause Button-->
         <ImageView
@@ -49,16 +42,16 @@
             android:layout_marginRight="10dp"
             android:contentDescription="APP"
             android:padding="10dp"
-            android:src="@drawable/play" />
+            android:src="@drawable/pause" />
 
         <!--        Next Button-->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/nextBtnPA"
+            android:id="@+id/fullscreenButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            app:icon="@drawable/forward"
+            app:icon="@drawable/fullscreen"
             app:iconSize="40dp" />
 
     </LinearLayout>
