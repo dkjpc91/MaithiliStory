@@ -14,5 +14,6 @@ class NetworkDialog(context: Context): AlertDialog(context) {
         val view = inflater.inflate(R.layout.networkdialog, null)
         setView(view)
         setCancelable(false)
+        window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 }
