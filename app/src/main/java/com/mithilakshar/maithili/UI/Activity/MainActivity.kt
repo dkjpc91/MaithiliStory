@@ -19,6 +19,7 @@ import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.mithilakshar.maithili.Adapter.homeAdapter
 import com.mithilakshar.maithili.Model.homeData
+import com.mithilakshar.maithili.Utility.InAppUpdate
 import com.mithilakshar.maithili.Utility.NetworkDialog
 import com.mithilakshar.maithili.Utility.NetworkLiveCheck
 import com.mithilakshar.maithili.ViewModel.homeViewModel
@@ -32,8 +33,10 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHomeBinding
 
-    private lateinit var appUpdateManager: AppUpdateManager
-    private val updateType=AppUpdateType.IMMEDIATE
+    private val inAppUpdateManager: InAppUpdate by lazy {
+        InAppUpdate(this, MY_REQUEST_CODE)
+    }
+    private val MY_REQUEST_CODE = 123
 
     val viewModelhome: homeViewModel by lazy {
         ViewModelProvider(this).get(homeViewModel::class.java)
@@ -48,11 +51,6 @@ class MainActivity : AppCompatActivity() {
         binding=ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        appUpdateManager= AppUpdateManagerFactory.create(applicationContext)
-        if (updateType==AppUpdateType.FLEXIBLE){
-            appUpdateManager.registerListener(installStateUpdatedListener)
-        }
-        checkForAppUpdate()
 
 
         lifecycleScope.launch {
@@ -92,83 +90,26 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
-    private val installStateUpdatedListener= InstallStateUpdatedListener{
-        if (it.installStatus()== InstallStatus.DOWNLOADED){
 
-            Toast.makeText(this,"Download Completed", Toast.LENGTH_LONG).show()
-            lifecycleScope.launch {
-                delay(5.seconds)
-                appUpdateManager.completeUpdate()
-            }
-        }
-    }
 
-    private fun checkForAppUpdate(){
 
-        appUpdateManager.appUpdateInfo.addOnSuccessListener {
-            val isUpdateAvailable=it.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-            val isUpdateAllowed=when(updateType){
-
-                AppUpdateType.IMMEDIATE->{it.isImmediateUpdateAllowed}
-                AppUpdateType.FLEXIBLE->{it.isFlexibleUpdateAllowed}
-                else->false
-
-            }
-
-            if (isUpdateAvailable && isUpdateAllowed){
-                appUpdateManager.startUpdateFlowForResult(
-                    it,updateType,this,113
-                )
-            }
-        }
-    }
 
     override fun onResume() {
         super.onResume()
-        if (updateType==AppUpdateType.IMMEDIATE){
-            appUpdateManager.appUpdateInfo.addOnSuccessListener {
-                if (it.updateAvailability()==UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
-                {
-                    appUpdateManager.startUpdateFlowForResult(
-                        it,updateType,this,113
-                    )
 
-                }
-            }
-        }
-
+        inAppUpdateManager.checkForAppUpdate()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (updateType==AppUpdateType.FLEXIBLE){
-            appUpdateManager.unregisterListener(installStateUpdatedListener)
-        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        inAppUpdateManager.handleActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode==113){
-            if (resultCode!= RESULT_OK){
-                println("Something went wrong updating")
-            }
-        }
     }
 
 
