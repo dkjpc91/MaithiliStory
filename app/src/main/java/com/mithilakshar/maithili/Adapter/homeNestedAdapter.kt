@@ -1,28 +1,51 @@
 package com.mithilakshar.maithili.Adapter
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mithilakshar.maithili.Model.homeData
-import com.mithilakshar.maithili.UI.Activity.CategoryActivity
+import com.bumptech.glide.Glide
+import com.mithilakshar.maithili.Model.playerData
+import com.mithilakshar.maithili.R
 import com.mithilakshar.maithili.UI.Activity.PlayerActivity
-import com.mithilakshar.maithili.databinding.HomeItemBinding
+import com.mithilakshar.maithili.UI.Activity.videoPlayerActivity
 import com.mithilakshar.maithili.databinding.HomenesteditemBinding
 
-class homeNestedAdapter(val list: ArrayList<homeData>, val context: Context): RecyclerView.Adapter<homeNestedAdapter.homeNestedViewholder>() {
+class homeNestedAdapter(val list: List<playerData>, val context: Context,val avKey: String): RecyclerView.Adapter<homeNestedAdapter.homeNestedViewholder>() {
 
     class homeNestedViewholder(val binding: HomenesteditemBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(model: homeData,context: Context){
+        fun bind(model: playerData,context: Context,avKey: String){
 
+
+            Glide.with(context).load(model.playerImage).into(binding.imageView)
             binding.root.setOnClickListener {
 
-                val intent= Intent(context,PlayerActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(intent)
+                if (avKey.isNotEmpty()&& (avKey=="1")){
+                    val intent= Intent(context, PlayerActivity::class.java)
+                    intent.putExtra("playerUrl",model.playerUrl)
+                    intent.putExtra("playerName",model.playerName)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                    if (context is Activity) {
+                        context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
+                }
+                else{
+
+
+                    val intent= Intent(context, videoPlayerActivity::class.java)
+                    intent.putExtra("playerUrl",model.playerUrl)
+                    intent.putExtra("playerName",model.playerName)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                    if (context is Activity) {
+                        context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    }
+                }
+
+
             }
 
 
@@ -41,7 +64,7 @@ class homeNestedAdapter(val list: ArrayList<homeData>, val context: Context): Re
 
     override fun onBindViewHolder(holder: homeNestedViewholder, position: Int) {
         val currentdata=list.get(position)
-        return holder.bind(currentdata,context)
+        return holder.bind(currentdata,context,avKey)
     }
 
 

@@ -1,14 +1,20 @@
 package com.mithilakshar.maithili.UI.Activity
 
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Toast
+import android.window.OnBackInvokedCallback
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import com.mithilakshar.maithili.Utility.AudioPlayer
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -28,6 +34,7 @@ class PlayerActivity : AppCompatActivity(){
     private var isPaused: Boolean = false
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -50,11 +57,20 @@ class PlayerActivity : AppCompatActivity(){
         // Set up media player and SeekBar max value
 
         seekBar = binding.seekBar
+
+        val playerUrl = intent.getStringExtra("playerUrl")
+        val playerName = intent.getStringExtra("playerName")
+
+        binding.audioName.text=playerName
         AudioPlayer = AudioPlayer(applicationContext)
-        AudioPlayer.prepareAndPlayMedia("https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3", startImmediately = true) {
-            seekBar.max = AudioPlayer.duration
 
 
+        playerUrl?.let {
+            AudioPlayer.prepareAndPlayMedia(it, startImmediately = true) {
+                seekBar.max = AudioPlayer.duration
+
+
+            }
         }
 
 
@@ -89,7 +105,23 @@ class PlayerActivity : AppCompatActivity(){
         updateSeekBar()
 
 
+        binding.backBTN.setOnClickListener {
+            finish()
 
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
+        }
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Handle back press event here
+                // For example, show a confirmation dialog or exit the activity
+                finish()
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
 
 
@@ -106,6 +138,7 @@ class PlayerActivity : AppCompatActivity(){
         includedLayoutBinding.playbutton .setOnClickListener {
             toggleButton(includedLayoutBinding)
         }
+        includedLayoutBinding.fullscreenButton.visibility=View.GONE
 
 
         binding.pauseButton.setOnClickListener {
@@ -114,6 +147,10 @@ class PlayerActivity : AppCompatActivity(){
 
 
         }
+
+
+
+
 
     }
 
@@ -187,12 +224,16 @@ class PlayerActivity : AppCompatActivity(){
 
     override fun onDestroy() {
         super.onDestroy()
+
         AudioPlayer.AudioPlayerRelease()
         handler.removeCallbacksAndMessages(null)
+
     }
 
 
-
+    override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
+        return super.getOnBackInvokedDispatcher()
+    }
 
 
 }

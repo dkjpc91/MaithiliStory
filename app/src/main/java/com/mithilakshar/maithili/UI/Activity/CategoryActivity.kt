@@ -5,14 +5,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.mithilakshar.maithili.Adapter.categoryAdapter
-import com.mithilakshar.maithili.Adapter.homeAdapter
-import com.mithilakshar.maithili.Model.homeData
+import com.mithilakshar.maithili.Model.playerData
 import com.mithilakshar.maithili.R
+import com.mithilakshar.maithili.Repository.firestoreRepository
 import com.mithilakshar.maithili.databinding.ActivityCategoryBinding
+import kotlinx.coroutines.launch
 
 class CategoryActivity : AppCompatActivity() {
     lateinit var binding : ActivityCategoryBinding
+
+    var playerDataList= listOf<playerData>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,14 +29,17 @@ class CategoryActivity : AppCompatActivity() {
         }
 
 
-        var list: ArrayList<homeData> = arrayListOf()
+        val repository: firestoreRepository = firestoreRepository()
+        val receivedText = intent.getStringExtra("dataKey")
+        val avKey = intent.getStringExtra("avKey")
 
-        list.add(homeData("apple",1))
-        list.add(homeData("ball",2))
-        list.add(homeData("cAT",2))
+        lifecycleScope.launch {
+
+            playerDataList = receivedText?.let { repository.playerData(it) }!!
+            val adapter= categoryAdapter(playerDataList,applicationContext, avKey.toString())
+            binding.categoryRecycler.adapter=adapter
+        }
 
 
-        val adapter= categoryAdapter(list,applicationContext)
-        binding.categoryRecycler.adapter=adapter
     }
 }

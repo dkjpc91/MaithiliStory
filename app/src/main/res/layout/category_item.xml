@@ -23,7 +23,7 @@
 
 
             <ImageView
-                android:id="@+id/mBookImage"
+                android:id="@+id/mvideoImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -34,7 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
-                app:srcCompat="@drawable/logo" />
+                />
 
             <View
                 android:id="@+id/view"
@@ -48,14 +48,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
     <TextView
-        android:id="@+id/mBookTitle"
+        android:id="@+id/mVideoTitle"
         android:padding="2dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="How to be Fine &amp; Think Good"
         android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="#4A9A93"
@@ -69,13 +68,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
 
-        android:text="Kristen Meinzer"
+        android:text=" मिथिलाक्षर "
         android:textColor="#4A9A93"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/mBookTitle"
+        app:layout_constraintEnd_toEndOf="@+id/mVideoTitle"
         app:layout_constraintStart_toEndOf="@+id/materialCardView"
-        app:layout_constraintTop_toBottomOf="@+id/mBookTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/mVideoTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

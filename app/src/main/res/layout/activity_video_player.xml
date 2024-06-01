@@ -54,7 +54,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/my_app_primary"
-                android:text="Video"
+                android:text="मैथिली"
+                android:textAppearance="?attr/actionBarTheme"
                 android:layout_marginRight="80dp"
                 android:textSize="28sp"
                 android:gravity="center"
@@ -73,7 +74,6 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="29dp"
 
-            android:text="Video Name"
             android:textSize="25sp"
             android:textStyle="bold"
             android:textColor="@color/my_app_primary"
@@ -100,6 +100,18 @@
             android:layout_gravity="center_vertical|center_horizontal"
             app:strokeColor="#ECE791"
             app:strokeWidth="5dp"/>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/videoImage"
+            android:layout_weight="1"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            app:strokeColor="#ECE791"
+            app:strokeWidth="5dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="100dp"/>
+"
 
 
 
@@ -111,7 +123,7 @@
         android:layout_marginTop="-50dp"
         android:id="@+id/sheet"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
 
         android:background="@drawable/bottomsheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mithilakshar.maithili.Model.homeData
+import com.mithilakshar.maithili.Model.playerData
 import kotlinx.coroutines.tasks.await
 
 class firestoreRepository {
@@ -24,6 +25,13 @@ class firestoreRepository {
         val db = FirebaseFirestore.getInstance()
         val documentSnapshot = db.collection("homeData").get().await()
         return documentSnapshot.toObjects(homeData::class.java)
+
+    }
+
+    suspend fun playerData(path:String): List<playerData> {
+        val db = FirebaseFirestore.getInstance()
+        val documentSnapshot = db.collection(path).get().await()
+        return documentSnapshot.toObjects(playerData::class.java)
 
     }
 

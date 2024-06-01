@@ -1,5 +1,6 @@
 package com.mithilakshar.maithili.UI.Activity
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,8 @@ import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.mithilakshar.maithili.Adapter.homeAdapter
 import com.mithilakshar.maithili.Model.homeData
+import com.mithilakshar.maithili.R
+import com.mithilakshar.maithili.Repository.firestoreRepository
 import com.mithilakshar.maithili.Utility.InAppUpdate
 import com.mithilakshar.maithili.Utility.NetworkDialog
 import com.mithilakshar.maithili.Utility.NetworkLiveCheck
@@ -32,7 +35,7 @@ import kotlin.time.Duration.Companion.seconds
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHomeBinding
-
+    val repository: firestoreRepository= firestoreRepository()
     private val inAppUpdateManager: InAppUpdate by lazy {
         InAppUpdate(this, MY_REQUEST_CODE)
     }
@@ -65,14 +68,15 @@ class MainActivity : AppCompatActivity() {
 
             list= viewModelhome.homeData()
 
-            val adapter=homeAdapter(list,applicationContext)
+            val adapter=homeAdapter(list,this@MainActivity,repository)
             binding.homeRecycler.adapter=adapter
 
             binding.homeBanner.setOnClickListener {
 
-                    val intent= Intent(this@MainActivity, videoPlayerActivity::class.java)
+                    val intent= Intent(this@MainActivity, CategoryActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     this@MainActivity.startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
             }
 

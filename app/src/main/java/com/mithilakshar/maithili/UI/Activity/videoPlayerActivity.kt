@@ -3,15 +3,18 @@ package com.mithilakshar.maithili.UI.Activity
 
 
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 
 import android.widget.Toast
 import android.window.OnBackInvokedDispatcher
-import com.mithilakshar.maithili.Utility.VideoPlayerHelper
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -29,14 +32,13 @@ class videoPlayerActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityVideoPlayerBinding
     private lateinit var videoPlayerUtil: videoPlayerUtil
-    private lateinit var VideoPlayerHelper: VideoPlayerHelper
     private var isPaused: Boolean = false
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding=ActivityVideoPlayerBinding.inflate(layoutInflater)
-
-            setContentView(binding.root)
+        setContentView(binding.root)
 
 
 
@@ -55,9 +57,19 @@ class videoPlayerActivity : AppCompatActivity() {
 
 
         }
+
+        val playerUrl = intent.getStringExtra("playerUrl")
+        val playerName = intent.getStringExtra("playerName")
+
+
+        binding.videoName.text=playerName
+
+
         videoPlayerUtil = videoPlayerUtil(this, lifecycle, binding.youtubePlayerView)
 
-        videoPlayerUtil.initializePlayer("SBfPs-PMGTA")
+        if (playerUrl != null) {
+            videoPlayerUtil.initializePlayer(playerUrl)
+        }
 
 
         val includedView = binding.sheet
@@ -65,6 +77,20 @@ class videoPlayerActivity : AppCompatActivity() {
         includedLayoutBinding.fullscreenButton.setOnClickListener {
             requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
+
+        includedLayoutBinding.sharebutton.setOnClickListener {
+
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                // Replace "your.package.name" with your app's package name
+
+                val appLink = "https://play.google.com/store/apps/details?id=${applicationContext.packageName}"
+                putExtra(Intent.EXTRA_TEXT, "मैथिली ऐप के प्रयोग करबाक लेल धन्यवाद! \n\nमैथिली भाषा के प्रचार प्रसार के लेल अहि एप्प के शेयर जरूर करब। गूगल प्ले स्टोर स ऐप डाउनलोड करबाक लेल नीचा देल गेल लिंक पर क्लिक करू। \n \n $appLink")
+                type = "text/plain"
+            }
+            startActivity(Intent.createChooser(intent, "Share App"))
+
+        }
+
         includedLayoutBinding.playbutton.setOnClickListener {
 
             if (isPaused) {
@@ -83,6 +109,22 @@ class videoPlayerActivity : AppCompatActivity() {
 
 
         }
+
+        binding.backBtnPA.setOnClickListener {
+            finish()
+
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Handle back press event here
+                // For example, show a confirmation dialog or exit the activity
+                finish()
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
 
 
@@ -140,6 +182,7 @@ class videoPlayerActivity : AppCompatActivity() {
 
     override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
         return super.getOnBackInvokedDispatcher()
+
 
     }
 }

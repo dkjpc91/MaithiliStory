@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F1C3"
+    android:background="#CEECFA"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true">
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:background="#F6F1C3"
+        android:background="#CEECFA"
 
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_height="wrap_content">
@@ -18,10 +18,9 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             app:collapsedTitleGravity="center"
-            app:expandedTitleTextColor="#F92010"
+            app:expandedTitleTextColor="#F41505"
             app:expandedTitleTextAppearance="?attr/actionBarTheme"
             app:collapsedTitleTextColor="#FFEB3B"
-
             app:titleCollapseMode="scale"
             app:contentScrim="@color/my_app_primary_dark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -34,8 +33,7 @@
                 android:clipToOutline="true"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-
-                android:background="@drawable/corner"
+                android:background="@drawable/topsheet"
                 app:layout_collapseMode="parallax"
                 android:scaleType="centerCrop"/>
 
@@ -43,7 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/app_name"
-
+                app:subtitle="@string/app_dev"
+                app:titleMargin="2dp"
+                app:titleTextAppearance="@drawable/border"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
                 app:titleCentered="true"/>

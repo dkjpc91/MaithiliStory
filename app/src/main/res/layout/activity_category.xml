@@ -21,7 +21,7 @@
         <!--    Back Button-->
         <ImageButton
 
-            android:id="@+id/backBtnPA"
+            android:id="@+id/backBTN"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="25dp"
@@ -38,7 +38,7 @@
             android:layout_marginRight="80dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Video"
+            android:text="संपूर्ण सूची"
             android:textColor="@color/my_app_primary"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -49,6 +49,8 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:paddingEnd="5dp"
         android:id="@+id/categoryRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
