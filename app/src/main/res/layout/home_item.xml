@@ -24,16 +24,18 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_marginRight="40dp"
                 android:id="@+id/cardView"
-                android:layout_width="110dp"
+                android:layout_width="160dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:transitionName="BookTrans"
+                android:layout_marginRight="40dp"
                 android:layout_marginBottom="16dp"
+                android:transitionName="BookTrans"
                 app:cardCornerRadius="7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
                 app:strokeWidth="0.5dp">
@@ -73,7 +75,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="42dp"
                 android:lineHeight="40dp"
                 android:text="Today's\nBook"

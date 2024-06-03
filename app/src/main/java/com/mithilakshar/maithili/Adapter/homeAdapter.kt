@@ -33,6 +33,7 @@ class homeAdapter(val list: List<homeData>,val context: Context,val repository: 
                     val intent= Intent(context, PlayerActivity::class.java)
                     intent.putExtra("playerUrl",model.playerUrl)
                     intent.putExtra("playerName",model.name)
+                    intent.putExtra("playerImage",model.homeImageUrl)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
                     if (context is Activity) {

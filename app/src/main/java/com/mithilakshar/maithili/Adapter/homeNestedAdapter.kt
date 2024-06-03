@@ -26,6 +26,7 @@ class homeNestedAdapter(val list: List<playerData>, val context: Context,val avK
                     val intent= Intent(context, PlayerActivity::class.java)
                     intent.putExtra("playerUrl",model.playerUrl)
                     intent.putExtra("playerName",model.playerName)
+                    intent.putExtra("playerImage",model.playerImage)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
                     if (context is Activity) {
@@ -38,6 +39,7 @@ class homeNestedAdapter(val list: List<playerData>, val context: Context,val avK
                     val intent= Intent(context, videoPlayerActivity::class.java)
                     intent.putExtra("playerUrl",model.playerUrl)
                     intent.putExtra("playerName",model.playerName)
+                    intent.putExtra("playerImage",model.playerImage)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
                     if (context is Activity) {

@@ -71,16 +71,21 @@ class MainActivity : AppCompatActivity() {
             val adapter=homeAdapter(list,this@MainActivity,repository)
             binding.homeRecycler.adapter=adapter
 
+
             binding.homeBanner.setOnClickListener {
 
-                    val intent= Intent(this@MainActivity, CategoryActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    this@MainActivity.startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                val intent= Intent(this@MainActivity, CategoryActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.putExtra("dataKey","video")
+                intent.putExtra("avKey","0")
+                this@MainActivity.startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
             }
 
         }
+
+
 
         networkLiveCheck = NetworkLiveCheck(this)
         val networkStatusDialog = NetworkDialog(this)

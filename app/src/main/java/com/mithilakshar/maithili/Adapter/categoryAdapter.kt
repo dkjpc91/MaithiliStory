@@ -18,15 +18,16 @@ class categoryAdapter(val list: List<playerData>, val context: Context,val avKey
     class categoryAdapterViewholder(val binding: CategoryItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(model: playerData, context: Context,avKey: String){
 
+            Glide.with(context).load(model.playerImage).into(binding.mvideoImage)
+            binding.mVideoTitle.text=model.playerName
             binding.root.setOnClickListener {
 
-                Glide.with(context).load(model.playerImage).into(binding.mvideoImage)
-                binding.mVideoTitle.text=model.playerName
 
                 if (avKey.isNotEmpty()&& (avKey=="1")){
                     val intent= Intent(context, PlayerActivity::class.java)
                     intent.putExtra("playerUrl",model.playerUrl)
                     intent.putExtra("playerName",model.playerName)
+                    intent.putExtra("playerImage",model.playerImage)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
                     if (context is Activity) {
@@ -41,6 +42,7 @@ class categoryAdapter(val list: List<playerData>, val context: Context,val avKey
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     intent.putExtra("playerUrl",model.playerUrl)
                     intent.putExtra("playerName",model.playerName)
+                    intent.putExtra("playerImage",model.playerImage)
                     context.startActivity(intent)
                     if (context is Activity) {
                         context.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

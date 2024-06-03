@@ -1,6 +1,7 @@
 package com.mithilakshar.maithili.UI.Activity
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,12 +12,15 @@ import com.mithilakshar.maithili.Model.playerData
 import com.mithilakshar.maithili.R
 import com.mithilakshar.maithili.Repository.firestoreRepository
 import com.mithilakshar.maithili.databinding.ActivityCategoryBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CategoryActivity : AppCompatActivity() {
     lateinit var binding : ActivityCategoryBinding
 
-    var playerDataList= listOf<playerData>()
+    val repository: firestoreRepository = firestoreRepository()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,17 +32,45 @@ class CategoryActivity : AppCompatActivity() {
             insets
         }
 
-
-        val repository: firestoreRepository = firestoreRepository()
         val receivedText = intent.getStringExtra("dataKey")
         val avKey = intent.getStringExtra("avKey")
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO){
 
-            playerDataList = receivedText?.let { repository.playerData(it) }!!
-            val adapter= categoryAdapter(playerDataList,applicationContext, avKey.toString())
-            binding.categoryRecycler.adapter=adapter
+
+            var playerDataList = repository.playerData(receivedText.toString())
+            var adapter= categoryAdapter(playerDataList,applicationContext, avKey.toString())
+            withContext(Dispatchers.Main) { // Switching to the Main dispatcher to update UI
+                binding.categoryRecycler.adapter = adapter
+                // Hide progress bar after data is fetched (optional)
+                // binding.progressBar.visibility = View.GONE
+            }
+
         }
+
+        binding.backBTN.setOnClickListener {
+            finish()
+
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
+        }
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Handle back press event here
+                // For example, show a confirmation dialog or exit the activity
+                finish()
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+
+
+
+
+
 
 
     }

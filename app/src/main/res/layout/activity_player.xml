@@ -78,9 +78,9 @@
             android:layout_margin="50dp"
             android:padding="5dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/music"
             app:shapeAppearanceOverlay="@style/curved"
             app:strokeColor="#ECE791"
+            android:scaleType="center"
             app:strokeWidth="5dp"/>
 
         <com.airbnb.lottie.LottieAnimationView

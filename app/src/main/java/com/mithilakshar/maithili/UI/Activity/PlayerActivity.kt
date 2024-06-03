@@ -1,5 +1,6 @@
 package com.mithilakshar.maithili.UI.Activity
 
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.airbnb.lottie.LottieAnimationView
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.imageview.ShapeableImageView
 import com.mithilakshar.maithili.R
@@ -58,9 +60,11 @@ class PlayerActivity : AppCompatActivity(){
 
         seekBar = binding.seekBar
 
+
         val playerUrl = intent.getStringExtra("playerUrl")
         val playerName = intent.getStringExtra("playerName")
-
+        val playerImage = intent.getStringExtra("playerImage")
+        Glide.with(this).load(playerImage).into(binding.songImage)
         binding.audioName.text=playerName
         AudioPlayer = AudioPlayer(applicationContext)
 
@@ -207,6 +211,7 @@ class PlayerActivity : AppCompatActivity(){
                         binding.pauseButton.setImageResource(R.drawable.play)
                         binding.lottie.visibility = LottieAnimationView.GONE
                         binding.songImage.visibility = ShapeableImageView.VISIBLE
+
                         // performSomeAction()
                     }
                 }
