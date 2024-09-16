@@ -1,4 +1,13 @@
 package com.mithilakshar.maithili.Model
 
-data class homeData(val name: String ="",val viewType :Int =1,val dataKey: String ="",val homeImageUrl: String ="",
-                    val avKey: String ="",val playerUrl: String ="")
+data class homeData(
+    val sno: Int,
+    val category: String,
+    val ename: String,
+    val name: String,
+    val description: String,
+    val viewtype: String,
+    val avkey: String,
+    val imageurl: Int,
+    val datakey: String
+)
